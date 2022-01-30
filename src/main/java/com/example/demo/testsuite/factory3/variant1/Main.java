@@ -44,6 +44,8 @@ public class Main {
 
     private static void factoryKit3() {
         AtomicReference<Integer> i = new AtomicReference<>(0);
+        AtomicReference<String> str = new AtomicReference<>("hello, world!");
+
         // create custom factory at runtime
         FabricFactoryKit factory = FabricFactoryKit.builder()
                 .assetPrototypeMap(Map.of(
@@ -60,8 +62,9 @@ public class Main {
                         new AssetModify(asset -> asset.setUuid("fixed uuid")),
                         new Node2Modify(node2 -> node2.setUuid(UUID.randomUUID().toString())),
                         new Node1Modify(node1 -> {
+                            str.set(str.get() + " new ");
                             i.getAndSet(i.get() + 1);
-                            node1.setUuid("mock-uuid-" + i);
+                            node1.setUuid("mock-uuid-" + i + " " + str.get());
                         })
                 ))
                 .build();
