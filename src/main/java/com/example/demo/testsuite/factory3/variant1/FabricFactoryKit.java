@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 @SuperBuilder(toBuilder = true)
 public class FabricFactoryKit implements Function<Class<? extends Asset>, Asset.AssetBuilder<?, ?>> {
 
-    private Map<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> suppliers = Suppliers.default1();
+    private Map<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> prototypes = Prototypes.default1();
     private Function<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> ifAbsent = IfAbsent.default1();
     private List<BaseModify> modifiers = Modifiers.default1();
 
@@ -32,7 +32,7 @@ public class FabricFactoryKit implements Function<Class<? extends Asset>, Asset.
 
     @Override
     public Asset.AssetBuilder<?, ?> apply(Class<? extends Asset> aClass) {
-        Asset asset = suppliers.computeIfAbsent(aClass, this.ifAbsent).get().build();
+        Asset asset = prototypes.computeIfAbsent(aClass, this.ifAbsent).get().build();
         for (BaseModify modifier : modifiers) {
             asset = asset.accept(modifier);
         }
@@ -40,19 +40,19 @@ public class FabricFactoryKit implements Function<Class<? extends Asset>, Asset.
     }
 
     public abstract static class FabricFactoryKitBuilder<C extends FabricFactoryKit, B extends FabricFactoryKit.FabricFactoryKitBuilder<C, B>> {
-        public B suppliers(final Map<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> suppliers) {
-            this.suppliers = new HashMap<>(suppliers);
+        public B prototypes(final Map<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> prototypes) {
+            this.prototypes = new HashMap<>(prototypes);
             return this.self();
         }
     }
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Suppliers {
+    public static class Prototypes {
         public static Map<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> default1() {
             return new HashMap<>(Map.of(
-                    Edge1.class, Suppliers::edge1BuilderPrototype,
-                    Node1.class, Suppliers::node1BuilderPrototype,
-                    Node2.class, Suppliers::node2BuilderPrototype
+                    Edge1.class, Prototypes::edge1BuilderPrototype,
+                    Node1.class, Prototypes::node1BuilderPrototype,
+                    Node2.class, Prototypes::node2BuilderPrototype
             ));
         }
 

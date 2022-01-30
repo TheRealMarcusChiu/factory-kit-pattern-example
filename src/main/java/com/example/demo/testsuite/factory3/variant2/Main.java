@@ -29,7 +29,7 @@ public class Main {
     private static void factoryKit2() {
         // create custom factory at runtime
         FabricFactoryKit factory = FabricFactoryKit.builder()
-                .suppliers(Map.of(
+                .prototypes(Map.of(
                         Edge1.class, () -> Edge1.builder().assetDescription("edge1 - baseFactory2"),
                         Node1.class, () -> Node1.builder().assetDescription("node1 - baseFactory2"),
                         Node2.class, () -> Node2.builder().assetDescription("node2 - baseFactory2")
@@ -42,7 +42,7 @@ public class Main {
     private static void factoryKit3() {
         // create custom factory at runtime
         FabricFactoryKit factory = FabricFactoryKit.builder()
-                .suppliers(Map.of(
+                .prototypes(Map.of(
                         Edge1.class, () -> Edge1.builder().assetDescription("edge1 - baseFactory2"),
                         Node1.class, () -> Node1.builder().assetDescription("node1 - baseFactory2"),
                         Node2.class, () -> Node2.builder().assetDescription("node2 - baseFactory2")
