@@ -63,9 +63,12 @@ public class Main {
         Node1 n1 = factory.apply(Node1.class);
         Node2 n2 = factory.apply(Node2.class);
 
-        System.out.println(e1.getAssetDescription());
-        System.out.println(n1.getAssetDescription());
-        System.out.println(n2.getAssetDescription());
+        System.out.println("edge1 assetDescription = " + e1.getAssetDescription());
+        System.out.println("node1 assetDescription = " + n1.getAssetDescription());
+        System.out.println("node2 assetDescription = " + n2.getAssetDescription());
+        System.out.println("edge1 uuid = " + e1.getUuid());
+        System.out.println("node1 uuid = " + n1.getUuid());
+        System.out.println("node2 uuid = " + n2.getUuid());
         System.out.println("");
     }
 }
