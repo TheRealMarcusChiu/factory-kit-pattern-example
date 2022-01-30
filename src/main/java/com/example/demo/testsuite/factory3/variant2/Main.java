@@ -1,4 +1,4 @@
-package com.example.demo.testsuite.factory3;
+package com.example.demo.testsuite.factory3.variant2;
 
 import com.example.demo.model.Edge1;
 import com.example.demo.model.Node1;
@@ -59,9 +59,9 @@ public class Main {
     }
 
     private static void testFabricFactory(final FabricFactoryKit fabricFactoryKit) {
-        Edge1 e1 = (Edge1) fabricFactoryKit.apply(Edge1.class).build();
-        Node1 n1 = (Node1) fabricFactoryKit.apply(Node1.class).build();
-        Node2 n2 = (Node2) fabricFactoryKit.apply(Node2.class).build();
+        Edge1 e1 = fabricFactoryKit.apply(Edge1.class);
+        Node1 n1 = fabricFactoryKit.apply(Node1.class);
+        Node2 n2 = fabricFactoryKit.apply(Node2.class);
 
         System.out.println(e1.getAssetDescription());
         System.out.println(n1.getAssetDescription());

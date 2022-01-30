@@ -1,4 +1,4 @@
-package com.example.demo.testsuite.factory3;
+package com.example.demo.testsuite.factory3.variant2;
 
 import com.example.demo.model.Asset;
 import com.example.demo.model.Edge1;
@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @SuperBuilder(toBuilder = true)
-public class FabricFactoryKit implements Function<Class<? extends Asset>, Asset.AssetBuilder<?, ?>> {
+public class FabricFactoryKit {
 
     private Map<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> suppliers = Suppliers.default1();
     private Function<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> ifAbsent = IfAbsent.default1();
@@ -30,13 +30,12 @@ public class FabricFactoryKit implements Function<Class<? extends Asset>, Asset.
         return new FabricFactoryKit().toBuilder();
     }
 
-    @Override
-    public Asset.AssetBuilder<?, ?> apply(Class<? extends Asset> aClass) {
-        Asset asset = suppliers.computeIfAbsent(aClass, this.ifAbsent).get().build();
+    public <T extends Asset> T apply(Class<T> clazz) {
+        Asset asset = suppliers.computeIfAbsent(clazz, this.ifAbsent).get().build();
         for (BaseModify modifier : modifiers) {
             asset = asset.accept(modifier);
         }
-        return asset.toBuilder();
+        return clazz.cast(asset);
     }
 
     public abstract static class FabricFactoryKitBuilder<C extends FabricFactoryKit, B extends FabricFactoryKit.FabricFactoryKitBuilder<C, B>> {
