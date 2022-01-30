@@ -38,15 +38,6 @@ public class FabricFactory implements Function<Class<? extends Base>, Base.BaseB
         return base.toBuilder().uuid(uuidFunction.apply(base));
     }
 
-//    public <T extends Base, K extends Base.BaseBuilder<T, K>> K apply(
-//            Class<T> aClass,
-//            Function<Class<T>, Supplier<K>> factory2,
-//            Function<T, String> uuidFunction) {
-//        T base = factory2.apply(aClass).get().build();
-//        base.b
-//        return base.toBuilder().uuid(uuidFunction.apply(base)).build();
-//    }
-
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static class FactoryKit {
 
