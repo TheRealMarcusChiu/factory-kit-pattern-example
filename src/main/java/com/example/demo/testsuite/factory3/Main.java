@@ -7,17 +7,31 @@ import com.example.demo.testsuite.factory3.visitors.subclasses.AssetModify;
 import com.example.demo.testsuite.factory3.visitors.subclasses.Node1Modify;
 
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
     public static void main(String[] args) {
+        factoryKit1();
+//        factoryKit2();
+    }
+
+    private static void factoryKit1() {
         // create custom factory at runtime
         FabricFactoryKit factory = FabricFactoryKit.builder()
-                .suppliers(builder -> {
-                    builder.accept(Edge1.class, () -> Edge1.builder().edge1Description("edge1 - baseFactory2"));
-                    builder.accept(Node1.class, () -> Node1.builder().node1Description("node1 - baseFactory2"));
-                    builder.accept(Node2.class, () -> Node2.builder().node2Description("node2 - baseFactory2"));
-                })
+                .build();
+
+        testFabricFactory(factory);
+    }
+
+    private static void factoryKit2() {
+        // create custom factory at runtime
+        FabricFactoryKit factory = FabricFactoryKit.builder()
+                .suppliers(Map.of(
+                        Edge1.class, () -> Edge1.builder().edge1Description("edge1 - baseFactory2"),
+                        Node1.class, () -> Node1.builder().node1Description("node1 - baseFactory2"),
+                        Node2.class, () -> Node2.builder().node2Description("node2 - baseFactory2")
+                ))
                 .modifiers(List.of(
                         new AssetModify(AssetModify.setUuidRandom()),
                         new AssetModify(asset -> asset.setAssetDescription("some asset description")),
