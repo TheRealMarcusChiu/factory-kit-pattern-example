@@ -1,12 +1,11 @@
-package com.example.demo.testsuite;
+package com.example.demo.testsuite.factory1;
 
-import com.example.demo.model.Base;
+import com.example.demo.model.Asset;
 import com.example.demo.model.Edge1;
 import com.example.demo.model.Node1;
 import com.example.demo.model.Node2;
-import com.example.demo.model.visitor.BaseVisitorReturn;
-import com.example.demo.testsuite.builder.DefaultBuilderPrototype;
-import com.example.demo.testsuite.visitors.UuidBaseVisitor;
+import com.example.demo.model.visitor.AssetVisitorReturn;
+import com.example.demo.testsuite.builders.DefaultBuilderPrototype;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -23,25 +22,25 @@ import java.util.function.Supplier;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @SuperBuilder(toBuilder = true)
-public class FabricFactory implements Function<Class<? extends Base>, Base.BaseBuilder<? extends Base, ?>> {
+public class FabricFactory implements Function<Class<? extends Asset>, Asset.AssetBuilder<? extends Asset, ?>> {
 
-    private Function<Class<? extends Base>, Supplier<? extends Base.BaseBuilder<?, ?>>> factory;
-    private Function<Base, String> uuidFunction = UuidFunction.random();
+    private Function<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> factory;
+    private Function<Asset, String> uuidFunction = UuidFunction.random();
 
     public static FabricFactory.FabricFactoryBuilder<?, ?> builder() {
         return new FabricFactory().toBuilder();
     }
 
     @Override
-    public Base.BaseBuilder<? extends Base, ?> apply(Class<? extends Base> aClass) {
-        Base base = factory.apply(aClass).get().build();
-        return base.toBuilder().uuid(uuidFunction.apply(base));
+    public Asset.AssetBuilder<? extends Asset, ?> apply(Class<? extends Asset> aClass) {
+        Asset asset = factory.apply(aClass).get().build();
+        return asset.toBuilder().uuid(uuidFunction.apply(asset));
     }
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static class FactoryKit {
 
-        public static Function<Class<? extends Base>, Supplier<? extends Base.BaseBuilder<?, ?>>> factory1() {
+        public static Function<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> factory1() {
             return customFactory(builder -> {
                 builder.accept(Edge1.class, DefaultBuilderPrototype::edge1);
                 builder.accept(Node1.class, DefaultBuilderPrototype::node1);
@@ -51,7 +50,7 @@ public class FabricFactory implements Function<Class<? extends Base>, Base.BaseB
             });
         }
 
-        public static Function<Class<? extends Base>, Supplier<? extends Base.BaseBuilder<?, ?>>> factory2() {
+        public static Function<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> factory2() {
             return customFactory(builder -> {
                 builder.accept(Edge1.class, () -> DefaultBuilderPrototype.edge1().edge1Description("edge1 - baseFactory2"));
                 builder.accept(Node1.class, () -> DefaultBuilderPrototype.node1().node1Description("node1 - baseFactory2"));
@@ -61,26 +60,33 @@ public class FabricFactory implements Function<Class<? extends Base>, Base.BaseB
             });
         }
 
-        public static Function<Class<? extends Base>, Supplier<? extends Base.BaseBuilder<?, ?>>> customFactory(
-                Consumer<BiConsumer<Class<? extends Base>, Supplier<? extends Base.BaseBuilder<?, ?>>>> consumer,
-                Function<Class<? extends Base>, Supplier<? extends Base.BaseBuilder<?, ?>>> ifAbsent) {
-            Map<Class<? extends Base>, Supplier<? extends Base.BaseBuilder<?, ?>>> map = new HashMap<>();
+        public static Function<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> customFactory(
+                Consumer<BiConsumer<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>>> consumer,
+                Function<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> ifAbsent) {
+            Map<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> map = new HashMap<>();
             consumer.accept(map::put);
             return key -> map.computeIfAbsent(key, ifAbsent);
+        }
+
+        public static Function<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> customFactory(
+                Consumer<BiConsumer<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>>> consumer) {
+            Map<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> map = new HashMap<>();
+            consumer.accept(map::put);
+            return map::get;
         }
     }
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static class UuidFunction {
-        public static Function<Base, String> random() {
+        public static Function<Asset, String> random() {
             return v -> UUID.randomUUID().toString();
         }
 
-        public static Function<Base, String> fixed(final String staticUuid) {
+        public static Function<Asset, String> fixed(final String staticUuid) {
             return v -> staticUuid;
         }
 
-        public static Function<Base, String> visitor(BaseVisitorReturn<String> visitorReturn) {
+        public static Function<Asset, String> visitor(AssetVisitorReturn<String> visitorReturn) {
             return base -> base.accept(visitorReturn);
         }
     }

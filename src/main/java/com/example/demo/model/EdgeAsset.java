@@ -1,7 +1,7 @@
 package com.example.demo.model;
 
-import com.example.demo.model.visitor.BaseVisitor;
-import com.example.demo.model.visitor.BaseVisitorReturn;
+import com.example.demo.model.visitor.AssetVisitorVoid;
+import com.example.demo.model.visitor.AssetVisitorReturn;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,20 +13,20 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class EdgeBase extends Base {
-    private String edgeBaseDescription;
+public class EdgeAsset extends Asset {
+    private String edgeAssetDescription;
 
-    public static EdgeBase.EdgeBaseBuilder<?, ?> builder() {
-        return new EdgeBase().toBuilder();
+    public static EdgeAsset.EdgeAssetBuilder<?, ?> builder() {
+        return new EdgeAsset().toBuilder();
     }
 
     @Override
-    public void accept(BaseVisitor visitor) {
+    public void accept(AssetVisitorVoid visitor) {
         visitor.visitEdgeBase(this);
     }
 
     @Override
-    public <T> T accept(BaseVisitorReturn<T> visitor) {
+    public <T> T accept(AssetVisitorReturn<T> visitor) {
         return visitor.visitEdgeBase(this);
     }
 }

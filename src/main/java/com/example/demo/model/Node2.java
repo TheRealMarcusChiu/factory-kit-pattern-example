@@ -1,7 +1,7 @@
 package com.example.demo.model;
 
-import com.example.demo.model.visitor.BaseVisitor;
-import com.example.demo.model.visitor.BaseVisitorReturn;
+import com.example.demo.model.visitor.AssetVisitorVoid;
+import com.example.demo.model.visitor.AssetVisitorReturn;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class Node2 extends NodeBase {
+public class Node2 extends NodeAsset {
     private String node2Description;
     private Edge1 edge1;
 
@@ -22,12 +22,12 @@ public class Node2 extends NodeBase {
     }
 
     @Override
-    public void accept(BaseVisitor visitor) {
+    public void accept(AssetVisitorVoid visitor) {
         visitor.visitNode2(this);
     }
 
     @Override
-    public <T> T accept(BaseVisitorReturn<T> visitor) {
+    public <T> T accept(AssetVisitorReturn<T> visitor) {
         return visitor.visitNode2(this);
     }
 }

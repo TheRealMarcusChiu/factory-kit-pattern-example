@@ -1,20 +1,23 @@
-package com.example.demo.testsuite.builder;
+package com.example.demo.testsuite.builders;
 
 import com.example.demo.model.Edge1;
 import com.example.demo.model.Node1;
 import com.example.demo.model.Node2;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DefaultBuilderPrototype {
 
     public static Edge1.Edge1Builder<?, ?> edge1() {
-        return Edge1.builder().edge1Description("edge1 description");
+        return Edge1.builder();
     }
 
     public static Node1.Node1Builder<?, ?> node1() {
-        return Node1.builder().node1Description("node1 description");
+        return Node1.builder();
     }
 
     public static Node2.Node2Builder<?, ?> node2() {
-        return Node2.builder().node2Description("node2 description");
+        return Node2.builder();
     }
 }

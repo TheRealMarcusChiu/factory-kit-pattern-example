@@ -1,10 +1,10 @@
 package com.example.demo.testsuite;
 
-import com.example.demo.model.Base;
+import com.example.demo.model.Asset;
 import com.example.demo.model.Edge1;
 import com.example.demo.model.Node1;
 import com.example.demo.model.Node2;
-import com.example.demo.testsuite.builder.DefaultBuilderPrototype;
+import com.example.demo.testsuite.builders.DefaultBuilderPrototype;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 
 public class FabricFactoryKit {
 
-    public static Function<Class<? extends Base>, Supplier<? extends Base.BaseBuilder<?, ?>>> baseFactory1() {
+    public static Function<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> baseFactory1() {
         return baseFactoryKit(builder -> {
             builder.accept(Edge1.class, DefaultBuilderPrototype::edge1);
             builder.accept(Node1.class, DefaultBuilderPrototype::node1);
@@ -25,7 +25,7 @@ public class FabricFactoryKit {
         });
     }
 
-    public static Function<Class<? extends Base>, Supplier<? extends Base.BaseBuilder<?, ?>>> baseFactory2() {
+    public static Function<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> baseFactory2() {
         return baseFactoryKit(builder -> {
             builder.accept(Edge1.class, () -> DefaultBuilderPrototype.edge1().edge1Description("edge1 - baseFactory2"));
             builder.accept(Node1.class, () -> DefaultBuilderPrototype.node1().node1Description("node1 - baseFactory2"));
@@ -35,9 +35,9 @@ public class FabricFactoryKit {
         });
     }
 
-    public static Function<Class<? extends Base>, Supplier<? extends Base.BaseBuilder<?, ?>>> baseFactoryKit(
-            Consumer<BiConsumer<Class<? extends Base>, Supplier<? extends Base.BaseBuilder<?, ?>>>> consumer,
-            Function<Class<? extends Base>, Supplier<? extends Base.BaseBuilder<?, ?>>> ifAbsent) {
+    public static Function<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> baseFactoryKit(
+            Consumer<BiConsumer<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>>> consumer,
+            Function<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> ifAbsent) {
         return genericFactoryKit(consumer, ifAbsent);
     }
 

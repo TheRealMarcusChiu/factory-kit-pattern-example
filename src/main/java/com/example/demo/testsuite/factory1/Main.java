@@ -1,9 +1,9 @@
-package com.example.demo.testsuite;
+package com.example.demo.testsuite.factory1;
 
 import com.example.demo.model.Edge1;
 import com.example.demo.model.Node1;
 import com.example.demo.model.Node2;
-import com.example.demo.testsuite.visitors.UuidBaseVisitor;
+import com.example.demo.testsuite.factory1.visitors.UuidAssetVisitor;
 
 public class Main {
 
@@ -16,13 +16,13 @@ public class Main {
 
         factory = FabricFactory.builder()
                 .factory(FabricFactory.FactoryKit.factory1())
-                .uuidFunction(FabricFactory.UuidFunction.visitor(new UuidBaseVisitor()))
+                .uuidFunction(FabricFactory.UuidFunction.visitor(new UuidAssetVisitor()))
                 .build();
         testFabricFactory(factory);
 
         factory = FabricFactory.builder()
                 .factory(FabricFactory.FactoryKit.factory2())
-                .uuidFunction(FabricFactory.UuidFunction.visitor(new UuidBaseVisitor()))
+                .uuidFunction(FabricFactory.UuidFunction.visitor(new UuidAssetVisitor()))
                 .build();
         testFabricFactory(factory);
     }

@@ -1,35 +1,33 @@
 package com.example.demo.model;
 
+import com.example.demo.model.visitor.AcceptAssetVisitorVoid;
+import com.example.demo.model.visitor.AcceptAssetVisitorReturn;
 import com.example.demo.model.visitor.AssetVisitorVoid;
 import com.example.demo.model.visitor.AssetVisitorReturn;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class Edge1 extends EdgeAsset {
-    private String edge1Description;
+public class Asset implements AcceptAssetVisitorVoid, AcceptAssetVisitorReturn {
+    private String uuid;
+    private String assetDescription;
 
-    private Node1 node1;
-    private Node2 node2;
-
-    public static Edge1.Edge1Builder<?, ?> builder() {
-        return new Edge1().toBuilder();
+    public static Asset.AssetBuilder<?, ?> builder() {
+        return new Asset().toBuilder();
     }
 
     @Override
     public void accept(AssetVisitorVoid visitor) {
-        visitor.visitEdge1(this);
+        visitor.visitBase(this);
     }
 
     @Override
     public <T> T accept(AssetVisitorReturn<T> visitor) {
-        return visitor.visitEdge1(this);
+        return visitor.visitBase(this);
     }
 }
