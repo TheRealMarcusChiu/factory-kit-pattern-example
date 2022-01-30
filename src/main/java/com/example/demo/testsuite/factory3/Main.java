@@ -3,7 +3,7 @@ package com.example.demo.testsuite.factory3;
 import com.example.demo.model.Edge1;
 import com.example.demo.model.Node1;
 import com.example.demo.model.Node2;
-import com.example.demo.testsuite.builders.DefaultBuilderPrototype;
+import com.example.demo.testsuite.DefaultBuilderPrototype;
 import com.example.demo.testsuite.factory3.visitors.subclasses.AssetModify;
 import com.example.demo.testsuite.factory3.visitors.subclasses.Node1Modify;
 

@@ -1,4 +1,4 @@
-package com.example.demo.testsuite.builders;
+package com.example.demo.testsuite;
 
 import com.example.demo.model.Edge1;
 import com.example.demo.model.Node1;
