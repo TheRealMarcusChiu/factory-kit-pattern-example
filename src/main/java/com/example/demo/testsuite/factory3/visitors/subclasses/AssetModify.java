@@ -13,7 +13,7 @@ public class AssetModify extends BaseModify {
     private final Consumer<Asset> consumer;
 
     @Override
-    public Asset visitBase(Asset asset) {
+    public Asset visitAsset(Asset asset) {
         consumer.accept(asset);
         return asset;
     }

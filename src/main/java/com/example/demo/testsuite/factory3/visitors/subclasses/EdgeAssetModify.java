@@ -13,7 +13,7 @@ public class EdgeAssetModify extends BaseModify {
     private final Consumer<EdgeAsset> consumer;
 
     @Override
-    public Asset visitEdgeBase(EdgeAsset edgeAsset) {
+    public Asset visitEdgeAsset(EdgeAsset edgeAsset) {
         consumer.accept(edgeAsset);
         return edgeAsset;
     }

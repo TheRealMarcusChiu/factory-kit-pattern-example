@@ -13,9 +13,9 @@ public class NodeAssetModify extends BaseModify {
     private final Consumer<NodeAsset> consumer;
 
     @Override
-    public Asset visitNodeBase(NodeAsset nodeBase) {
-        consumer.accept(nodeBase);
-        return nodeBase;
+    public Asset visitNodeAsset(NodeAsset nodeAsset) {
+        consumer.accept(nodeAsset);
+        return nodeAsset;
     }
 
     public static Consumer<NodeAsset> setNodeAssetDescriptionFixed(String fixedNodeAssetDescription) {

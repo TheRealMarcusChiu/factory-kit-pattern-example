@@ -24,6 +24,6 @@ public class NodeAsset extends Asset {
 
     @Override
     public <T> T accept(AssetVisitorReturn<T> visitor) {
-        return visitor.visitNodeBase(this);
+        return visitor.visitNodeAsset(this);
     }
 }

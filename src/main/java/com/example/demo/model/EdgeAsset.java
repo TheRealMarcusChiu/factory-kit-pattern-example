@@ -27,6 +27,6 @@ public class EdgeAsset extends Asset {
 
     @Override
     public <T> T accept(AssetVisitorReturn<T> visitor) {
-        return visitor.visitEdgeBase(this);
+        return visitor.visitEdgeAsset(this);
     }
 }

@@ -10,32 +10,32 @@ import lombok.experimental.SuperBuilder;
 public class BaseModify implements AssetVisitorReturn<Asset> {
 
     @Override
-    public Asset visitBase(Asset asset) {
+    public Asset visitAsset(Asset asset) {
         return asset;
     }
 
     @Override
-    public Asset visitNodeBase(NodeAsset nodeBase) {
-        return visitBase(nodeBase);
+    public Asset visitNodeAsset(NodeAsset nodeAsset) {
+        return visitAsset(nodeAsset);
     }
 
     @Override
-    public Asset visitEdgeBase(EdgeAsset edgeBase) {
-        return visitBase(edgeBase);
+    public Asset visitEdgeAsset(EdgeAsset edgeAsset) {
+        return visitAsset(edgeAsset);
     }
 
     @Override
     public Asset visitEdge1(Edge1 edge1) {
-        return visitBase(edge1);
+        return visitAsset(edge1);
     }
 
     @Override
     public Asset visitNode1(Node1 node1) {
-        return visitBase(node1);
+        return visitAsset(node1);
     }
 
     @Override
     public Asset visitNode2(Node2 node2) {
-        return visitBase(node2);
+        return visitAsset(node2);
     }
 }

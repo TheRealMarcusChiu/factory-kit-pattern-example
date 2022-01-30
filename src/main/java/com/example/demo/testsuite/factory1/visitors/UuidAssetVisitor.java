@@ -6,18 +6,18 @@ import com.example.demo.model.visitor.AssetVisitorReturn;
 public class UuidAssetVisitor implements AssetVisitorReturn<String> {
 
     @Override
-    public String visitBase(Asset asset) {
+    public String visitAsset(Asset asset) {
         return asset.getAssetDescription();
     }
 
     @Override
-    public String visitNodeBase(NodeAsset nodeBase) {
-        return nodeBase.getNodeAssetDescription();
+    public String visitNodeAsset(NodeAsset nodeAsset) {
+        return nodeAsset.getNodeAssetDescription();
     }
 
     @Override
-    public String visitEdgeBase(EdgeAsset edgeBase) {
-        return edgeBase.getEdgeAssetDescription();
+    public String visitEdgeAsset(EdgeAsset edgeAsset) {
+        return edgeAsset.getEdgeAssetDescription();
     }
 
     @Override
