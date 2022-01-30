@@ -19,7 +19,7 @@ public class NodeAsset extends Asset {
 
     @Override
     public void accept(AssetVisitorVoid visitor) {
-        visitor.visitNodeBase(this);
+        visitor.visitNodeAsset(this);
     }
 
     @Override

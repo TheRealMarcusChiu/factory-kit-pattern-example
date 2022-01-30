@@ -23,7 +23,7 @@ public class Asset implements AcceptAssetVisitorVoid, AcceptAssetVisitorReturn {
 
     @Override
     public void accept(AssetVisitorVoid visitor) {
-        visitor.visitBase(this);
+        visitor.visitAsset(this);
     }
 
     @Override

@@ -50,9 +50,9 @@ public class FabricFactoryKit implements Function<Class<? extends Asset>, Asset.
     public static class Suppliers {
         public static Map<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> default1() {
             return new HashMap<>(Map.of(
-                    Edge1.class, () -> Edge1.builder().edge1Description("edge1 - baseFactory2"),
-                    Node1.class, () -> Node1.builder().node1Description("node1 - baseFactory2"),
-                    Node2.class, () -> Node2.builder().node2Description("node2 - baseFactory2")
+                    Edge1.class, () -> Edge1.builder().assetDescription("default asset description").edge1Description("edge1 - baseFactory2"),
+                    Node1.class, () -> Node1.builder().assetDescription("default asset description").node1Description("node1 - baseFactory2"),
+                    Node2.class, () -> Node2.builder().assetDescription("default asset description").node2Description("node2 - baseFactory2")
             ));
         }
     }

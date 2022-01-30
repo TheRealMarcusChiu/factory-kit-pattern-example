@@ -13,9 +13,9 @@ public class EdgeAssetModify extends BaseModify {
     private final Consumer<EdgeAsset> consumer;
 
     @Override
-    public Asset visitEdgeBase(EdgeAsset edgeBase) {
-        consumer.accept(edgeBase);
-        return edgeBase;
+    public Asset visitEdgeBase(EdgeAsset edgeAsset) {
+        consumer.accept(edgeAsset);
+        return edgeAsset;
     }
 
     public static Consumer<EdgeAsset> setEdgeAssetDescriptionFixed(String fixedEdgeAssetDescription) {

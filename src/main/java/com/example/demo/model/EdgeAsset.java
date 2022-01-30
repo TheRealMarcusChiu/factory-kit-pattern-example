@@ -22,7 +22,7 @@ public class EdgeAsset extends Asset {
 
     @Override
     public void accept(AssetVisitorVoid visitor) {
-        visitor.visitEdgeBase(this);
+        visitor.visitEdgeAsset(this);
     }
 
     @Override
