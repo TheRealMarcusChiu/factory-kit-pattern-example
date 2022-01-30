@@ -58,11 +58,11 @@ public class Main {
                         new EdgeAssetModify(edgeAsset -> edgeAsset.setAssetDescription("modified - EdgeAssetModify")),
                         // modify uuid
                         new AssetModify(asset -> asset.setUuid("fixed uuid")),
+                        new Node2Modify(node2 -> node2.setUuid(UUID.randomUUID().toString())),
                         new Node1Modify(node1 -> {
                             i.getAndSet(i.get() + 1);
                             node1.setUuid("mock-uuid-" + i);
-                        }),
-                        new Node2Modify(node2 -> node2.setUuid(UUID.randomUUID().toString()))
+                        })
                 ))
                 .build();
 

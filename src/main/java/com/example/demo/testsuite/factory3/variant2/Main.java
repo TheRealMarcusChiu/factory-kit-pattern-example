@@ -6,9 +6,12 @@ import com.example.demo.model.Node2;
 import com.example.demo.testsuite.factory3.visitors.subclasses.AssetModify;
 import com.example.demo.testsuite.factory3.visitors.subclasses.EdgeAssetModify;
 import com.example.demo.testsuite.factory3.visitors.subclasses.Node1Modify;
+import com.example.demo.testsuite.factory3.visitors.subclasses.Node2Modify;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Main {
 
@@ -40,6 +43,7 @@ public class Main {
     }
 
     private static void factoryKit3() {
+        AtomicReference<Integer> i = new AtomicReference<>(0);
         // create custom factory at runtime
         FabricFactoryKit factory = FabricFactoryKit.builder()
                 .assetPrototypeMap(Map.of(
@@ -48,10 +52,17 @@ public class Main {
                         Node2.class, () -> Node2.builder().assetDescription("node2 - baseFactory2")
                 ))
                 .modifierChain(List.of(
-                        new AssetModify(asset -> asset.setUuid("fixed uuid")),
+                        // modify assetDescription
                         new AssetModify(asset -> asset.setAssetDescription("modified - AssetModify")),
                         new Node1Modify(node1 -> node1.setAssetDescription("modified - Node1Modify")),
-                        new EdgeAssetModify(edgeAsset -> edgeAsset.setAssetDescription("modified - EdgeAssetModify"))
+                        new EdgeAssetModify(edgeAsset -> edgeAsset.setAssetDescription("modified - EdgeAssetModify")),
+                        // modify uuid
+                        new AssetModify(asset -> asset.setUuid("fixed uuid")),
+                        new Node2Modify(node2 -> node2.setUuid(UUID.randomUUID().toString())),
+                        new Node1Modify(node1 -> {
+                            i.getAndSet(i.get() + 1);
+                            node1.setUuid("mock-uuid-" + i);
+                        })
                 ))
                 .build();
 
