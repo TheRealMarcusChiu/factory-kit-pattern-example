@@ -22,70 +22,67 @@ import java.util.function.Supplier;
 @SuperBuilder(toBuilder = true)
 public class FabricFactoryKit {
 
-    private Map<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> prototypes = Prototypes.default1();
-    private Function<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> ifAbsent = IfAbsent.default1();
-    private List<BaseModify> modifiers = Modifiers.default1();
+    private Map<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> assetPrototypeMap = AssetPrototypes.defaultMap();
+    private Function<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> ifAbsentAssetPrototype = defaultIfAbsentAssetPrototype();
+    private List<BaseModify> modifierChain = Modifiers.defaultChain();
 
     public static FabricFactoryKit.FabricFactoryKitBuilder<?, ?> builder() {
         return new FabricFactoryKit().toBuilder();
     }
 
     public <T extends Asset> T apply(Class<T> clazz) {
-        Asset asset = prototypes.computeIfAbsent(clazz, this.ifAbsent).get().build();
-        for (BaseModify modifier : modifiers) {
+        Asset asset = assetPrototypeMap.computeIfAbsent(clazz, this.ifAbsentAssetPrototype).get().build();
+        for (BaseModify modifier : modifierChain) {
             asset = asset.accept(modifier);
         }
         return clazz.cast(asset);
     }
 
     public abstract static class FabricFactoryKitBuilder<C extends FabricFactoryKit, B extends FabricFactoryKit.FabricFactoryKitBuilder<C, B>> {
-        public B prototypes(final Map<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> prototypes) {
-            this.prototypes = new HashMap<>(prototypes);
+        public B assetPrototypeMap(final Map<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> assetPrototypeMap) {
+            this.assetPrototypeMap = new HashMap<>(assetPrototypeMap);
             return this.self();
         }
     }
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Prototypes {
-        public static Map<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> default1() {
+    public static class AssetPrototypes {
+        public static Map<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> defaultMap() {
             return new HashMap<>(Map.of(
-                    Edge1.class, Prototypes::edge1BuilderPrototype,
-                    Node1.class, Prototypes::node1BuilderPrototype,
-                    Node2.class, Prototypes::node2BuilderPrototype
+                    Edge1.class, AssetPrototypes::edge1,
+                    Node1.class, AssetPrototypes::node1,
+                    Node2.class, AssetPrototypes::node2
             ));
         }
 
-        public static Edge1.Edge1Builder<?, ?> edge1BuilderPrototype() {
+        public static Edge1.Edge1Builder<?, ?> edge1() {
             return Edge1.builder().assetDescription("default asset description").edge1Description("edge1 - baseFactory2");
         }
 
-        public static Node1.Node1Builder<?, ?> node1BuilderPrototype() {
+        public static Node1.Node1Builder<?, ?> node1() {
             return Node1.builder().assetDescription("default asset description").node1Description("node1 - baseFactory2");
         }
 
-        public static Node2.Node2Builder<?, ?> node2BuilderPrototype() {
+        public static Node2.Node2Builder<?, ?> node2() {
             return Node2.builder().assetDescription("default asset description").node2Description("node2 - baseFactory2");
-        }
-    }
-
-    @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class IfAbsent {
-        public static <T extends Class<? extends Asset>> Function<T, Supplier<? extends Asset.AssetBuilder<?, ?>>> default1() {
-            return T -> {
-                throw new IllegalArgumentException("unknown class " + T.getCanonicalName());
-            };
         }
     }
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static class Modifiers {
 
-        public static List<BaseModify> default1() {
+        public static List<BaseModify> defaultChain() {
             return List.of(assetSetUuidRandom());
         }
 
         public static AssetModify assetSetUuidRandom() {
             return new AssetModify(AssetModify.setUuidRandom());
         }
+    }
+
+    public static <T extends Class<? extends Asset>> Function<T, Supplier<? extends Asset.AssetBuilder<?, ?>>> defaultIfAbsentAssetPrototype() {
+        return T -> {
+            throw new IllegalArgumentException("unknown class " + T.getCanonicalName());
+        };
     }
 }
