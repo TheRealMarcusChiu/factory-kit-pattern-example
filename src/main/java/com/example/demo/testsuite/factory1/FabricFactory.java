@@ -5,7 +5,6 @@ import com.example.demo.model.Edge1;
 import com.example.demo.model.Node1;
 import com.example.demo.model.Node2;
 import com.example.demo.model.visitor.AssetVisitorReturn;
-import com.example.demo.testsuite.DefaultBuilderPrototype;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
