@@ -50,7 +50,7 @@ public class Main {
                 .modifiers(List.of(
 //                        new AssetModify(asset -> asset.setUuid("fixed uuid")),
 //                        new AssetModify(asset -> asset.setAssetDescription("modified - AssetModify")),
-//                        new Node1Modify(node1 -> node1.setAssetDescription("modified - Node1Modify")),
+                        new Node1Modify(node1 -> node1.setAssetDescription("modified - Node1Modify")),
                         new EdgeAssetModify(edgeAsset -> edgeAsset.setAssetDescription("modified - EdgeAssetModify"))
                 ))
                 .build();

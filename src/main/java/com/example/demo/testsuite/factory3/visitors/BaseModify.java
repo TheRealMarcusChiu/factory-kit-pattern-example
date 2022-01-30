@@ -26,16 +26,16 @@ public class BaseModify implements AssetVisitorReturn<Asset> {
 
     @Override
     public Asset visitEdge1(Edge1 edge1) {
-        return visitAsset(edge1);
+        return visitEdgeAsset(edge1);
     }
 
     @Override
     public Asset visitNode1(Node1 node1) {
-        return visitAsset(node1);
+        return visitNodeAsset(node1);
     }
 
     @Override
     public Asset visitNode2(Node2 node2) {
-        return visitAsset(node2);
+        return visitNodeAsset(node2);
     }
 }
