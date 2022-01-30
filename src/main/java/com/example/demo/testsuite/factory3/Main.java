@@ -48,8 +48,8 @@ public class Main {
                         Node2.class, () -> Node2.builder().assetDescription("node2 - baseFactory2")
                 ))
                 .modifiers(List.of(
-//                        new AssetModify(asset -> asset.setUuid("fixed uuid")),
-//                        new AssetModify(asset -> asset.setAssetDescription("modified - AssetModify")),
+                        new AssetModify(asset -> asset.setUuid("fixed uuid")),
+                        new AssetModify(asset -> asset.setAssetDescription("modified - AssetModify")),
                         new Node1Modify(node1 -> node1.setAssetDescription("modified - Node1Modify")),
                         new EdgeAssetModify(edgeAsset -> edgeAsset.setAssetDescription("modified - EdgeAssetModify"))
                 ))
