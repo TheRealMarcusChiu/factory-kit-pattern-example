@@ -58,10 +58,10 @@ public class Main {
         testFabricFactory(factory);
     }
 
-    private static void testFabricFactory(final FabricFactoryKit fabricFactoryKit) {
-        Edge1 e1 = fabricFactoryKit.apply(Edge1.class);
-        Node1 n1 = fabricFactoryKit.apply(Node1.class);
-        Node2 n2 = fabricFactoryKit.apply(Node2.class);
+    private static void testFabricFactory(final FabricFactoryKit factory) {
+        Edge1 e1 = factory.apply(Edge1.class);
+        Node1 n1 = factory.apply(Node1.class);
+        Node2 n2 = factory.apply(Node2.class);
 
         System.out.println(e1.getAssetDescription());
         System.out.println(n1.getAssetDescription());
