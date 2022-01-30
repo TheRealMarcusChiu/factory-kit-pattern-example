@@ -49,21 +49,21 @@ public class FabricFactoryKit {
     public static class AssetPrototypes {
         public static Map<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> defaultMap() {
             return new HashMap<>(Map.of(
-                    Edge1.class, AssetPrototypes::edge1,
-                    Node1.class, AssetPrototypes::node1,
-                    Node2.class, AssetPrototypes::node2
+                    Edge1.class, AssetPrototypes::defaultEdge1,
+                    Node1.class, AssetPrototypes::defaultNode1,
+                    Node2.class, AssetPrototypes::defaultNode2
             ));
         }
 
-        public static Edge1.Edge1Builder<?, ?> edge1() {
+        public static Edge1.Edge1Builder<?, ?> defaultEdge1() {
             return Edge1.builder().assetDescription("default asset description").edge1Description("edge1 - baseFactory2");
         }
 
-        public static Node1.Node1Builder<?, ?> node1() {
+        public static Node1.Node1Builder<?, ?> defaultNode1() {
             return Node1.builder().assetDescription("default asset description").node1Description("node1 - baseFactory2");
         }
 
-        public static Node2.Node2Builder<?, ?> node2() {
+        public static Node2.Node2Builder<?, ?> defaultNode2() {
             return Node2.builder().assetDescription("default asset description").node2Description("node2 - baseFactory2");
         }
     }
