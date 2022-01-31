@@ -14,8 +14,8 @@ sequenceDiagram
     Library SDN Repository ->> Library Data Service: 
     Library Data Service ->> Envoy Transformer Service: 
 
-    Note over Envoy Transformer Service: generate C4 section: softwareSystems
-    Note over Envoy Transformer Service: generate C4 section: components
+    Note over Envoy Transformer Service: generate C4 section: context (i.e. softwareSystems)
+    Note over Envoy Transformer Service: generate C4 section: containers
     Note over Envoy Transformer Service: generate C4 section: relationships
     Note over Envoy Transformer Service: finalize C4 file
     
@@ -37,13 +37,13 @@ sequenceDiagram
     Library Data Service ->> Library SDN Repository: 
     Library SDN Repository ->> Library Data Service: 
     Library Data Service ->> Envoy Transformer Service: 
-    Note over Envoy Transformer Service: generate C4 section: softwareSystems
+    Note over Envoy Transformer Service: generate C4 section: context (i.e. softwareSystems)
 
-    Envoy Transformer Service ->> Library Data Service: query all application modules of anchor sealId
+    Envoy Transformer Service ->> Library Data Service: query all application modules & lds modules of anchor sealId
     Library Data Service ->> Library SDN Repository: 
     Library SDN Repository ->> Library Data Service: 
     Library Data Service ->> Envoy Transformer Service: 
-    Note over Envoy Transformer Service: generate C4 section: components
+    Note over Envoy Transformer Service: generate C4 section: container
 
     Envoy Transformer Service ->> Library Data Service: query all fine-grain relation of anchor sealId
     Library Data Service ->> Library SDN Repository: 
