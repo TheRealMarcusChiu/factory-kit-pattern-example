@@ -19,6 +19,7 @@ public class Main {
         factoryKit1();
         factoryKit2();
         factoryKit3();
+        factoryKit4();
     }
 
     private static void factoryKit1() {
@@ -43,6 +44,16 @@ public class Main {
     }
 
     private static void factoryKit3() {
+        FabricFactoryKit factory = FabricFactoryKit.builder()
+                .assetPrototypeMap(FabricFactoryKit.AssetPrototypes.defaultMap()
+                        .with(Edge1.class, () -> Edge1.builder().assetDescription("newer"))
+                )
+                .build();
+
+        testFabricFactory(factory);
+    }
+
+    private static void factoryKit4() {
         AtomicReference<Integer> i = new AtomicReference<>(0);
         AtomicReference<String> str = new AtomicReference<>("hello, world!");
 

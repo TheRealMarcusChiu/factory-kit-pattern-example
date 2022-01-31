@@ -6,6 +6,7 @@ import com.example.demo.model.Node1;
 import com.example.demo.model.Node2;
 import com.example.demo.testsuite.factory3.modifiers.BaseModify;
 import com.example.demo.testsuite.factory3.modifiers.AssetModify;
+import com.example.demo.testsuite.factory3.util.FluentHashMap;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -47,12 +48,12 @@ public class FabricFactoryKit {
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static class AssetPrototypes {
-        public static Map<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> defaultMap() {
-            return new HashMap<>(Map.of(
-                    Edge1.class, AssetPrototypes::defaultEdge1,
-                    Node1.class, AssetPrototypes::defaultNode1,
-                    Node2.class, AssetPrototypes::defaultNode2
-            ));
+        public static FluentHashMap<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> defaultMap() {
+            FluentHashMap<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> t = new FluentHashMap<>();
+            t.with(Edge1.class, com.example.demo.testsuite.factory3.variant10.builder.impl.function.FabricFactoryKit.AssetPrototypes::defaultEdge1)
+                    .with(Node1.class, com.example.demo.testsuite.factory3.variant10.builder.impl.function.FabricFactoryKit.AssetPrototypes::defaultNode1)
+                    .with(Node2.class, com.example.demo.testsuite.factory3.variant10.builder.impl.function.FabricFactoryKit.AssetPrototypes::defaultNode2);
+            return t;
         }
 
         public static Edge1.Edge1Builder<?, ?> defaultEdge1() {
