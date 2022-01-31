@@ -3,7 +3,7 @@ package com.example.demo.testsuite.factory1;
 import com.example.demo.model.Edge1;
 import com.example.demo.model.Node1;
 import com.example.demo.model.Node2;
-import com.example.demo.testsuite.factory1.visitors.UuidAssetVisitor;
+import com.example.demo.testsuite.factory1.modifiers.UuidAssetVisitor;
 
 public class Main {
 

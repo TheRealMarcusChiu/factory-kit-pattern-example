@@ -1,4 +1,4 @@
-package com.example.demo.testsuite.factory1.visitors;
+package com.example.demo.testsuite.factory1.modifiers;
 
 import com.example.demo.model.*;
 import com.example.demo.model.visitor.AssetVisitorReturn;
