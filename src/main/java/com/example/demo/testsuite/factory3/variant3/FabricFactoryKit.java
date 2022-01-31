@@ -1,11 +1,11 @@
-package com.example.demo.testsuite.factory3.variant11;
+package com.example.demo.testsuite.factory3.variant3;
 
 import com.example.demo.model.Asset;
 import com.example.demo.model.Edge1;
 import com.example.demo.model.Node1;
 import com.example.demo.model.Node2;
-import com.example.demo.testsuite.factory3.visitors.BaseModify;
-import com.example.demo.testsuite.factory3.visitors.subclasses.AssetModify;
+import com.example.demo.testsuite.factory3.modifiers.BaseModify;
+import com.example.demo.testsuite.factory3.modifiers.AssetModify;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -20,9 +20,10 @@ import java.util.function.Supplier;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @SuperBuilder(toBuilder = true)
-public class FabricFactoryKit implements Function<Class<? extends Asset>, Asset.AssetBuilder<?, ?>> {
+public class FabricFactoryKit implements Function<Class<? extends Asset>, Asset> {
 
     private Map<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> assetPrototypeMap = AssetPrototypes.defaultMap();
+    private Function<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> ifAbsentAssetPrototype = defaultIfAbsentAssetPrototype();
     private List<BaseModify> modifierChain = Modifiers.defaultChain();
 
     public static FabricFactoryKitBuilder<?, ?> builder() {
@@ -30,12 +31,12 @@ public class FabricFactoryKit implements Function<Class<? extends Asset>, Asset.
     }
 
     @Override
-    public Asset.AssetBuilder<?, ?> apply(Class<? extends Asset> clazz) {
-        Asset asset = assetPrototypeMap.get(clazz).get().build();
+    public Asset apply(Class<? extends Asset> clazz) {
+        Asset asset = assetPrototypeMap.computeIfAbsent(clazz, this.ifAbsentAssetPrototype).get().build();
         for (BaseModify modifier : modifierChain) {
             asset = asset.accept(modifier);
         }
-        return asset.toBuilder();
+        return asset;
     }
 
     public abstract static class FabricFactoryKitBuilder<C extends FabricFactoryKit, B extends FabricFactoryKitBuilder<C, B>> {
@@ -78,5 +79,11 @@ public class FabricFactoryKit implements Function<Class<? extends Asset>, Asset.
         public static AssetModify assetSetUuidRandom() {
             return new AssetModify(AssetModify.setUuidRandom());
         }
+    }
+
+    public static <T extends Class<? extends Asset>> Function<T, Supplier<? extends Asset.AssetBuilder<?, ?>>> defaultIfAbsentAssetPrototype() {
+        return T -> {
+            throw new IllegalArgumentException("unknown class " + T.getCanonicalName());
+        };
     }
 }

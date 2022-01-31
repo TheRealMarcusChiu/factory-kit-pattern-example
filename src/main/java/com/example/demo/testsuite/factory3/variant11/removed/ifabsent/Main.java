@@ -1,4 +1,4 @@
-package com.example.demo.testsuite.factory3.variant2;
+package com.example.demo.testsuite.factory3.variant11.removed.ifabsent;
 
 import com.example.demo.model.Edge1;
 import com.example.demo.model.Node1;
@@ -16,8 +16,8 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Main {
 
     public static void main(String[] args) {
-//        factoryKit1();
-//        factoryKit2();
+        factoryKit1();
+        factoryKit2();
         factoryKit3();
     }
 
@@ -44,6 +44,8 @@ public class Main {
 
     private static void factoryKit3() {
         AtomicReference<Integer> i = new AtomicReference<>(0);
+        AtomicReference<String> str = new AtomicReference<>("hello, world!");
+
         // create custom factory at runtime
         FabricFactoryKit factory = FabricFactoryKit.builder()
                 .assetPrototypeMap(Map.of(
@@ -60,8 +62,9 @@ public class Main {
                         new AssetModify(asset -> asset.setUuid("fixed uuid")),
                         new Node2Modify(node2 -> node2.setUuid(UUID.randomUUID().toString())),
                         new Node1Modify(node1 -> {
+                            str.set(str.get() + " new ");
                             i.getAndSet(i.get() + 1);
-                            node1.setUuid("mock-uuid-" + i);
+                            node1.setUuid("mock-uuid-" + i + " " + str.get());
                         })
                 ))
                 .build();
@@ -70,9 +73,9 @@ public class Main {
     }
 
     private static void testFabricFactory(final FabricFactoryKit factory) {
-        Edge1 e1 = factory.apply(Edge1.class);
-        Node1 n1 = factory.apply(Node1.class);
-        Node2 n2 = factory.apply(Node2.class);
+        Edge1 e1 = (Edge1) factory.apply(Edge1.class).build();
+        Node1 n1 = (Node1) factory.apply(Node1.class).build();
+        Node2 n2 = (Node2) factory.apply(Node2.class).build();
 
         System.out.println("edge1 assetDescription = " + e1.getAssetDescription());
         System.out.println("node1 assetDescription = " + n1.getAssetDescription());

@@ -1,12 +1,12 @@
-package com.example.demo.testsuite.factory3.variant11;
+package com.example.demo.testsuite.factory3.variant3;
 
 import com.example.demo.model.Edge1;
 import com.example.demo.model.Node1;
 import com.example.demo.model.Node2;
-import com.example.demo.testsuite.factory3.visitors.subclasses.AssetModify;
-import com.example.demo.testsuite.factory3.visitors.subclasses.EdgeAssetModify;
-import com.example.demo.testsuite.factory3.visitors.subclasses.Node1Modify;
-import com.example.demo.testsuite.factory3.visitors.subclasses.Node2Modify;
+import com.example.demo.testsuite.factory3.modifiers.AssetModify;
+import com.example.demo.testsuite.factory3.modifiers.EdgeAssetModify;
+import com.example.demo.testsuite.factory3.modifiers.Node1Modify;
+import com.example.demo.testsuite.factory3.modifiers.Node2Modify;
 
 import java.util.List;
 import java.util.Map;
@@ -73,9 +73,9 @@ public class Main {
     }
 
     private static void testFabricFactory(final FabricFactoryKit factory) {
-        Edge1 e1 = (Edge1) factory.apply(Edge1.class).build();
-        Node1 n1 = (Node1) factory.apply(Node1.class).build();
-        Node2 n2 = (Node2) factory.apply(Node2.class).build();
+        Edge1 e1 = (Edge1) factory.apply(Edge1.class);
+        Node1 n1 = (Node1) factory.apply(Node1.class);
+        Node2 n2 = (Node2) factory.apply(Node2.class);
 
         System.out.println("edge1 assetDescription = " + e1.getAssetDescription());
         System.out.println("node1 assetDescription = " + n1.getAssetDescription());

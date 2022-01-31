@@ -1,8 +1,7 @@
-package com.example.demo.testsuite.factory3.visitors.subclasses;
+package com.example.demo.testsuite.factory3.modifiers;
 
 import com.example.demo.model.Asset;
 import com.example.demo.model.EdgeAsset;
-import com.example.demo.testsuite.factory3.visitors.BaseModify;
 import lombok.RequiredArgsConstructor;
 
 import java.util.function.Consumer;

@@ -1,12 +1,11 @@
-package com.example.demo.testsuite.factory3.visitors;
+package com.example.demo.testsuite.factory3.modifiers;
 
 import com.example.demo.model.*;
 import com.example.demo.model.visitor.AssetVisitorReturn;
+import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
-@NoArgsConstructor
-@SuperBuilder
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class BaseModify implements AssetVisitorReturn<Asset> {
 
     @Override

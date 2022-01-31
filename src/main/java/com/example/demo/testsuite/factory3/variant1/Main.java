@@ -3,10 +3,10 @@ package com.example.demo.testsuite.factory3.variant1;
 import com.example.demo.model.Edge1;
 import com.example.demo.model.Node1;
 import com.example.demo.model.Node2;
-import com.example.demo.testsuite.factory3.visitors.subclasses.AssetModify;
-import com.example.demo.testsuite.factory3.visitors.subclasses.EdgeAssetModify;
-import com.example.demo.testsuite.factory3.visitors.subclasses.Node1Modify;
-import com.example.demo.testsuite.factory3.visitors.subclasses.Node2Modify;
+import com.example.demo.testsuite.factory3.modifiers.AssetModify;
+import com.example.demo.testsuite.factory3.modifiers.EdgeAssetModify;
+import com.example.demo.testsuite.factory3.modifiers.Node1Modify;
+import com.example.demo.testsuite.factory3.modifiers.Node2Modify;
 
 import java.util.List;
 import java.util.Map;
