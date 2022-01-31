@@ -1,4 +1,4 @@
-package com.example.demo.testsuite.factory3.variant3;
+package com.example.demo.testsuite.factory3.variant30.pojo.impl.function;
 
 import com.example.demo.model.Edge1;
 import com.example.demo.model.Node1;
