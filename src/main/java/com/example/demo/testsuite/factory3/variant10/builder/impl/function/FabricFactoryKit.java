@@ -4,8 +4,9 @@ import com.example.demo.model.Asset;
 import com.example.demo.model.Edge1;
 import com.example.demo.model.Node1;
 import com.example.demo.model.Node2;
-import com.example.demo.testsuite.factory3.modifiers.BaseModify;
 import com.example.demo.testsuite.factory3.modifiers.AssetModify;
+import com.example.demo.testsuite.factory3.modifiers.BaseModify;
+import com.example.demo.testsuite.factory3.util.FluentHashMap;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,12 @@ public class FabricFactoryKit implements Function<Class<? extends Asset>, Asset.
         return new FabricFactoryKit().toBuilder();
     }
 
+    public static <T extends Class<? extends Asset>> Function<T, Supplier<? extends Asset.AssetBuilder<?, ?>>> defaultIfAbsentAssetPrototype() {
+        return T -> {
+            throw new IllegalArgumentException("unknown class " + T.getCanonicalName());
+        };
+    }
+
     @Override
     public Asset.AssetBuilder<?, ?> apply(Class<? extends Asset> clazz) {
         Asset asset = assetPrototypeMap.computeIfAbsent(clazz, this.ifAbsentAssetPrototype).get().build();
@@ -48,12 +55,12 @@ public class FabricFactoryKit implements Function<Class<? extends Asset>, Asset.
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static class AssetPrototypes {
-        public static Map<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> defaultMap() {
-            return new HashMap<>(Map.of(
-                    Edge1.class, AssetPrototypes::defaultEdge1,
-                    Node1.class, AssetPrototypes::defaultNode1,
-                    Node2.class, AssetPrototypes::defaultNode2
-            ));
+        public static FluentHashMap<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> defaultMap() {
+            FluentHashMap<Class<? extends Asset>, Supplier<? extends Asset.AssetBuilder<?, ?>>> t = new FluentHashMap<>();
+            t.with(Edge1.class, AssetPrototypes::defaultEdge1)
+                    .with(Node1.class, AssetPrototypes::defaultNode1)
+                    .with(Node2.class, AssetPrototypes::defaultNode2);
+            return t;
         }
 
         public static Edge1.Edge1Builder<?, ?> defaultEdge1() {
@@ -79,11 +86,5 @@ public class FabricFactoryKit implements Function<Class<? extends Asset>, Asset.
         public static AssetModify assetSetUuidRandom() {
             return new AssetModify(AssetModify.setUuidRandom());
         }
-    }
-
-    public static <T extends Class<? extends Asset>> Function<T, Supplier<? extends Asset.AssetBuilder<?, ?>>> defaultIfAbsentAssetPrototype() {
-        return T -> {
-            throw new IllegalArgumentException("unknown class " + T.getCanonicalName());
-        };
     }
 }

@@ -16,8 +16,9 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Main {
 
     public static void main(String[] args) {
-//        factoryKit1();
-//        factoryKit2();
+        factoryKit1();
+        factoryKit2();
+        factoryKit2_5();
         factoryKit3();
     }
 
@@ -37,6 +38,17 @@ public class Main {
                         Node1.class, () -> Node1.builder().assetDescription("node1 - baseFactory2"),
                         Node2.class, () -> Node2.builder().assetDescription("node2 - baseFactory2")
                 ))
+                .build();
+
+        testFabricFactory(factory);
+    }
+
+    private static void factoryKit2_5() {
+        FabricFactoryKit factory = FabricFactoryKit.builder()
+                .assetPrototypeMap(FabricFactoryKit.AssetPrototypes.defaultMap()
+                        .with(Edge1.class, () -> Edge1.builder().assetDescription("newer"))
+                        .delete(Node1.class)
+                )
                 .build();
 
         testFabricFactory(factory);
