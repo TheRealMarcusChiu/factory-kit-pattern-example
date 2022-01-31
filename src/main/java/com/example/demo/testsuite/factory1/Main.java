@@ -36,6 +36,6 @@ public class Main {
         System.out.println(e1.getUuid());
         System.out.println(n1.getUuid());
         System.out.println(n2.getUuid());
-        System.out.println("");
+        System.out.println();
     }
 }

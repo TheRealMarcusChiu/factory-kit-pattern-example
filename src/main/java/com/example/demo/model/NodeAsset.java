@@ -1,8 +1,11 @@
 package com.example.demo.model;
 
-import com.example.demo.model.visitor.AssetVisitorVoid;
 import com.example.demo.model.visitor.AssetVisitorReturn;
-import lombok.*;
+import com.example.demo.model.visitor.AssetVisitorVoid;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @EqualsAndHashCode(callSuper = true)

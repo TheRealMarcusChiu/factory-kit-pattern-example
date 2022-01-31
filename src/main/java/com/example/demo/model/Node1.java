@@ -1,7 +1,7 @@
 package com.example.demo.model;
 
-import com.example.demo.model.visitor.AssetVisitorVoid;
 import com.example.demo.model.visitor.AssetVisitorReturn;
+import com.example.demo.model.visitor.AssetVisitorVoid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

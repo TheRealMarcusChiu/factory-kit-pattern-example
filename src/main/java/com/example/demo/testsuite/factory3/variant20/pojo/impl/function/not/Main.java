@@ -91,6 +91,6 @@ public class Main {
         System.out.println("edge1 uuid = " + e1.getUuid());
         System.out.println("node1 uuid = " + n1.getUuid());
         System.out.println("node2 uuid = " + n2.getUuid());
-        System.out.println("");
+        System.out.println();
     }
 }
