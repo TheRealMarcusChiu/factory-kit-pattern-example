@@ -44,9 +44,12 @@ public class Main {
     }
 
     private static void factoryKit3() {
+        // create custom factory at runtime
         FabricFactoryKit factory = FabricFactoryKit.builder()
-                .assetPrototypeMap(FabricFactoryKit.AssetPrototypes.defaultMap()
-                        .with(Edge1.class, () -> Edge1.builder().assetDescription("newer"))
+                .assetPrototypeMap(
+                        FabricFactoryKit.AssetPrototypes.defaultMap()
+                                .with(Edge1.class, () -> Edge1.builder().assetDescription("new description"))
+                                .with(Node2.class, () -> Node2.builder().assetDescription("new description"))
                 )
                 .build();
 
@@ -54,7 +57,6 @@ public class Main {
     }
 
     private static void factoryKit4() {
-        AtomicReference<Integer> i = new AtomicReference<>(0);
         AtomicReference<String> str = new AtomicReference<>("hello, world!");
 
         // create custom factory at runtime
@@ -74,8 +76,7 @@ public class Main {
                         new Node2Modify(node2 -> node2.setUuid(UUID.randomUUID().toString())),
                         new Node1Modify(node1 -> {
                             str.set(str.get() + " new ");
-                            i.getAndSet(i.get() + 1);
-                            node1.setUuid("mock-uuid-" + i + " " + str.get());
+                            node1.setUuid("mock-uuid-" + str.get());
                         })
                 ))
                 .build();
